@@ -76,6 +76,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    //MARK: OAuth Stuff
+    //Create notification when an API returns authentication stuff
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        //Add stuff here at a later date to figure out whether the URL is coming back from spotify or strava. Need to handle differently!
+        print(url)
+        let urlNotification: [String : URL] = ["url" : url]
+        NotificationCenter.default.post(name: Notification.Name("spotify"), object: nil, userInfo: urlNotification)
+        
+        return true
+    }
 
 }
 

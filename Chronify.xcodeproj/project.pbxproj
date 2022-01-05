@@ -14,6 +14,9 @@
 		CA5625B926DD945100D67FB6 /* Chronify.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA5625B726DD945100D67FB6 /* Chronify.xcdatamodeld */; };
 		CA5625BB26DD945400D67FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA5625BA26DD945400D67FB6 /* Assets.xcassets */; };
 		CA5625BE26DD945400D67FB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA5625BC26DD945400D67FB6 /* LaunchScreen.storyboard */; };
+		CA5625C726DD953400D67FB6 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = CA5625C626DD953400D67FB6 /* SpotifyAPI */; };
+		CA5625CA26DD958500D67FB6 /* StravaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CA5625C926DD958500D67FB6 /* StravaSwift */; };
+		CAD980ED26DEEEA30028B972 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD980EC26DEEEA20028B972 /* SetupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,7 @@
 		CA5625BA26DD945400D67FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA5625BD26DD945400D67FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA5625BF26DD945400D67FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAD980EC26DEEEA20028B972 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA5625C726DD953400D67FB6 /* SpotifyAPI in Frameworks */,
+				CA5625CA26DD958500D67FB6 /* StravaSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +68,7 @@
 				CA5625B026DD945100D67FB6 /* SceneDelegate.swift */,
 				CA5625B226DD945100D67FB6 /* ViewController.swift */,
 				CA5625B426DD945100D67FB6 /* Main.storyboard */,
+				CAD980EC26DEEEA20028B972 /* SetupViewController.swift */,
 				CA5625BA26DD945400D67FB6 /* Assets.xcassets */,
 				CA5625BC26DD945400D67FB6 /* LaunchScreen.storyboard */,
 				CA5625BF26DD945400D67FB6 /* Info.plist */,
@@ -86,6 +93,10 @@
 			dependencies = (
 			);
 			name = Chronify;
+			packageProductDependencies = (
+				CA5625C626DD953400D67FB6 /* SpotifyAPI */,
+				CA5625C926DD958500D67FB6 /* StravaSwift */,
+			);
 			productName = Chronify;
 			productReference = CA5625AB26DD945100D67FB6 /* Chronify.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +125,10 @@
 				Base,
 			);
 			mainGroup = CA5625A226DD945100D67FB6;
+			packageReferences = (
+				CA5625C526DD953400D67FB6 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
+				CA5625C826DD958500D67FB6 /* XCRemoteSwiftPackageReference "StravaSwift" */,
+			);
 			productRefGroup = CA5625AC26DD945100D67FB6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -145,6 +160,7 @@
 				CA5625AF26DD945100D67FB6 /* AppDelegate.swift in Sources */,
 				CA5625B126DD945100D67FB6 /* SceneDelegate.swift in Sources */,
 				CA5625B926DD945100D67FB6 /* Chronify.xcdatamodeld in Sources */,
+				CAD980ED26DEEEA30028B972 /* SetupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +237,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -276,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -364,6 +380,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA5625C526DD953400D67FB6 /* XCRemoteSwiftPackageReference "SpotifyAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Peter-Schorn/SpotifyAPI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		CA5625C826DD958500D67FB6 /* XCRemoteSwiftPackageReference "StravaSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mpclarkson/StravaSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA5625C626DD953400D67FB6 /* SpotifyAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA5625C526DD953400D67FB6 /* XCRemoteSwiftPackageReference "SpotifyAPI" */;
+			productName = SpotifyAPI;
+		};
+		CA5625C926DD958500D67FB6 /* StravaSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA5625C826DD958500D67FB6 /* XCRemoteSwiftPackageReference "StravaSwift" */;
+			productName = StravaSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CA5625B726DD945100D67FB6 /* Chronify.xcdatamodeld */ = {
