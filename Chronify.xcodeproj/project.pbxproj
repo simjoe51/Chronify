@@ -16,6 +16,7 @@
 		CA5625BE26DD945400D67FB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA5625BC26DD945400D67FB6 /* LaunchScreen.storyboard */; };
 		CA5625C726DD953400D67FB6 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = CA5625C626DD953400D67FB6 /* SpotifyAPI */; };
 		CA5625CA26DD958500D67FB6 /* StravaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CA5625C926DD958500D67FB6 /* StravaSwift */; };
+		CAB005D327862C4400A3E040 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = CAB005D227862C4400A3E040 /* KeychainAccess */; };
 		CAD980ED26DEEEA30028B972 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD980EC26DEEEA20028B972 /* SetupViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 			files = (
 				CA5625C726DD953400D67FB6 /* SpotifyAPI in Frameworks */,
 				CA5625CA26DD958500D67FB6 /* StravaSwift in Frameworks */,
+				CAB005D327862C4400A3E040 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,7 @@
 			packageProductDependencies = (
 				CA5625C626DD953400D67FB6 /* SpotifyAPI */,
 				CA5625C926DD958500D67FB6 /* StravaSwift */,
+				CAB005D227862C4400A3E040 /* KeychainAccess */,
 			);
 			productName = Chronify;
 			productReference = CA5625AB26DD945100D67FB6 /* Chronify.app */;
@@ -128,6 +131,7 @@
 			packageReferences = (
 				CA5625C526DD953400D67FB6 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
 				CA5625C826DD958500D67FB6 /* XCRemoteSwiftPackageReference "StravaSwift" */,
+				CAB005D127862C4400A3E040 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = CA5625AC26DD945100D67FB6 /* Products */;
 			projectDirPath = "";
@@ -398,6 +402,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		CAB005D127862C4400A3E040 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -410,6 +422,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA5625C826DD958500D67FB6 /* XCRemoteSwiftPackageReference "StravaSwift" */;
 			productName = StravaSwift;
+		};
+		CAB005D227862C4400A3E040 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAB005D127862C4400A3E040 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 

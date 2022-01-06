@@ -8,42 +8,32 @@
 import UIKit
 import SpotifyWebAPI
 import Combine
+import KeychainAccess
 
 class SetupViewController: UIViewController {
     
     //MARK: Variables
-    let spotify = SpotifyAPI(authorizationManager: AuthorizationCodeFlowPKCEManager(clientId: "ea1608401fca4e809a843f5d4740ee3c"))
     
-    let codeVerifier = String.randomURLSafe(length: 128)
-    var codeChallenge: String = ""
-    let state = String.randomURLSafe(length: 128)
+    
+   
+    
     var cancellables: Set<AnyCancellable> = []
+    
+    static let authorizationManagerKey = "authorizationManager"
+    @Published var isAuthorized = false
+    private let keychain = Keychain(service: "com.simeone.Chronify")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Make variables what they're supposed to be
-        codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
         
         //Notification observers for after authorization requests come back.
         NotificationCenter.default.addObserver(self, selector: #selector(handleSpotifyAuthorization(_:)), name: Notification.Name("spotify"), object: nil)
         
         // Do any additional setup after loading the view.
-        registerSpotify()
+        //MARK: Call authorize()
     }
     
-    private func registerSpotify() {
-        let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
-            redirectURI: URL(string: "https://chronifyapp.wordpress.com/callback")!,
-            codeChallenge: codeChallenge,
-            state: state,
-            scopes: [
-                .userReadRecentlyPlayed
-            ]
-        )!
-        
-        UIApplication.shared.open(authorizationURL)
-    }
+   
     
     //Handle responses from the API people. Error handling is important!
     @objc func handleSpotifyAuthorization(_ notification: NSNotification) {
@@ -86,4 +76,86 @@ class SetupViewController: UIViewController {
     }
     */
 
+}
+
+final class Spotify: ObservableObject {
+    
+    let spotify = SpotifyAPI(authorizationManager: AuthorizationCodeFlowPKCEManager(clientId: "ea1608401fca4e809a843f5d4740ee3c"))
+    let state = String.randomURLSafe(length: 128)
+    
+    let codeVerifier = String.randomURLSafe(length: 128)
+    var codeChallenge: String = ""
+    
+    static let authorizationManagerKey = "authorizationManager"
+    static let loginCallbackURL = URL(string: "https://chronifyapp.wordpress.com/callback")!
+    var authorizationState = String.randomURLSafe(length: 128)
+    
+    @Published var isAuthorized = false
+    
+    private let keychain = Keychain(service: "com.simeone.Chronify")
+    
+    let api = SpotifyAPI(authorizationManager: AuthorizationCodeFlowPKCEManager(clientId: "ea1608401fca4e809a843f5d4740ee3c"))
+    
+    var cancellables: [AnyCancellable] = []
+    
+    init() {
+        self.api.authorizationManagerDidChange
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: authorizationManagerDidChange)
+            .store(in: &cancellables)
+        
+        self.api.authorizationManagerDidDeauthorize
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: authorizationManagerDidDeauthorize)
+            .store(in: &cancellables)
+        
+        //Check to see if the information to authorize is saved in the keychain
+        if let authManagerData = keychain[data: Self.authorizationManagerKey] {
+            do {
+                let authorizationManager = try JSONDecoder().decode(AuthorizationCodeFlowPKCEManager.self, from: authManagerData)
+                self.api.authorizationManager = authorizationManager
+            } catch {
+                print("could not properly decode authorization manager from data: \(error)")
+            }
+        } else {
+            print("no auth info in keychain")
+        }
+    }
+    
+    private func authorize() {
+        codeChallenge = String.makeCodeChallenge(codeVerifier: codeVerifier)
+        let authorizationURL = spotify.authorizationManager.makeAuthorizationURL(
+            redirectURI: Self.loginCallbackURL,
+            codeChallenge: codeChallenge,
+            state: self.authorizationState,
+            scopes: [
+                .userReadRecentlyPlayed,
+                .userReadCurrentlyPlaying
+            ]
+        )!
+        
+        UIApplication.shared.open(authorizationURL)
+    }
+    
+    func authorizationManagerDidChange() {
+        self.isAuthorized = self.api.authorizationManager.isAuthorized()
+        
+        do {
+            let authManagerData = try JSONEncoder().encode(self.api.authorizationManager)
+            self.keychain[data: Self.authorizationManagerKey] = authManagerData
+        } catch {
+            print("Couldn't encode authorizationManager for storage in the keychain: \(error)")
+        }
+    }
+    
+    func authorizationManagerDidDeauthorize() {
+        self.isAuthorized = false
+        
+        do {
+            try self.keychain.remove(Self.authorizationManagerKey)
+            print("removed auth manager from keychain")
+        } catch {
+            print("could not remove auth manager from keychain: \(error)")
+        }
+    }
 }
